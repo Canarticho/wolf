@@ -65,11 +65,9 @@ typedef struct	s_wolf
 	double		ry;
 	double		rdx;
 	double		rdy;
-	double		rdtx;
-	double		rdty;
-	double		rcam;
 	double		sx;
 	double		sy;
+	double		rcam;
 
 }				t_wolf;
 

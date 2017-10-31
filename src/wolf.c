@@ -40,9 +40,9 @@ int    ft_move(int key, t_wolf *e)
 	if (key == UP || DOWN)
 	{
 		e->ms = (key == UP) ? (MS) : (-MS);
-			if (e->map[(int)(e->x + e->dx * e->ms)][(int)e->y] == 0)
+			if (!(e->map[(int)(e->x + e->dx * e->ms)][(int)e->y]))
 				e->x += e->dx * e->ms;
-		if (e->map[(int)e->x][(int)(e->y + e->dy * e->ms)] == 0)
+		if (!(e->map[(int)e->x][(int)(e->y + e->dy * e->ms)]))
 			e->y += e->dy * e->ms;
 	}
 	if (key == LEFT || key == RIGHT)
