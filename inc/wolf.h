@@ -6,7 +6,7 @@
 /*   By: vpluchar <vpluchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:14:46 by vpluchar          #+#    #+#             */
-/*   Updated: 2017/10/29 18:47:21 by vpluchar         ###   ########.fr       */
+/*   Updated: 2017/10/31 23:30:55 by chle-van         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_wolf
 
 }				t_wolf;
 
+int				ft_exit(t_wolf *e);
 int				ft_move(int key, t_wolf *e);
 int				open_map(char *map, t_wolf *e);
 int				ft_raycast(t_wolf *e);

@@ -34,7 +34,7 @@ static void ft_rdraw(t_wolf *e, int i)
 		e->color = COLORA;
 	else if (((e->rx < 0 && e->ry >= 0) || (e->rx >= 0 && e->ry >= 0)) && e->side)
 		e->color = COLORB;
-	else if (((e->rx < 0 && e->ry < 0) || (e->rx >= 0 && e->ry >= 0)) && !e->side)
+	else if (((e->rx < 0 && e->ry < 0) || (e->rx < 0 && e->ry >= 0)) && !e->side)
 		e->color = COLORC;
 	else
 		e->color = COLORD;
