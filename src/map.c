@@ -6,7 +6,7 @@
 /*   By: vpluchar <vpluchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 18:11:37 by vpluchar          #+#    #+#             */
-/*   Updated: 2017/10/29 21:09:59 by vpluchar         ###   ########.fr       */
+/*   Updated: 2017/11/01 00:32:13 by chle-van         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int				ft_check(int fd, t_wolf *e)
 	return (-1);
 }
 
-int		open_map(char *map, t_wolf *e)
+int				open_map(char *map, t_wolf *e)
 {
 	int	fd;
 
@@ -83,5 +83,5 @@ int		open_map(char *map, t_wolf *e)
 	if (!(ft_createmap(fd, e)))
 		return (5);
 	close(fd);
-	return(0);
+	return (0);
 }

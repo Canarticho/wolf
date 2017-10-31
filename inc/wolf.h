@@ -6,7 +6,7 @@
 /*   By: vpluchar <vpluchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:14:46 by vpluchar          #+#    #+#             */
-/*   Updated: 2017/10/31 23:30:55 by chle-van         ###   ########.fr       */
+/*   Updated: 2017/11/01 00:29:56 by chle-van         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "libft.h"
 # include <math.h>
 
-# define WID 540
-# define HEI 400
+# define WID 1280
+# define HEI 800
 # define ESC 53
 # define UP 13
 # define DOWN 1
@@ -76,4 +76,3 @@ int				ft_move(int key, t_wolf *e);
 int				open_map(char *map, t_wolf *e);
 int				ft_raycast(t_wolf *e);
 #endif
-

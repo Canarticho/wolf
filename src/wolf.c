@@ -6,7 +6,7 @@
 /*   By: vpluchar <vpluchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:19:22 by vpluchar          #+#    #+#             */
-/*   Updated: 2017/10/31 23:32:20 by chle-van         ###   ########.fr       */
+/*   Updated: 2017/11/01 00:32:04 by chle-van         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			ft_exit(t_wolf *e)
 	return (0);
 }
 
-void	ft_initmlx(t_wolf *e)
+void		ft_initmlx(t_wolf *e)
 {
 	e->x = 5;
 	e->y = 5;
@@ -36,15 +36,15 @@ void	ft_initmlx(t_wolf *e)
 	mlx_loop(e->mlx);
 }
 
-int    ft_move(int key, t_wolf *e)
+int			ft_move(int key, t_wolf *e)
 {
 	if (key == ESC)
 		ft_exit(e);
 	if (key == UP || key == DOWN)
 	{
 		e->ms = (key == UP) ? (MS) : (-MS);
-			if (!(e->map[(int)(e->x + e->dx * e->ms)][(int)e->y]))
-				e->x += e->dx * e->ms;
+		if (!(e->map[(int)(e->x + e->dx * e->ms)][(int)e->y]))
+			e->x += e->dx * e->ms;
 		if (!(e->map[(int)e->x][(int)(e->y + e->dy * e->ms)]))
 			e->y += e->dy * e->ms;
 	}

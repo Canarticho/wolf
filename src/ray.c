@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chle-van <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/01 00:32:56 by chle-van          #+#    #+#             */
+/*   Updated: 2017/11/01 00:34:46 by chle-van         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 
-static void ft_drawline(t_wolf *e, int sl ,int el, int x)
+static void		ft_drawline(t_wolf *e, int sl, int el, int x)
 {
 	int i;
 	int *tmp;
@@ -17,7 +29,7 @@ static void ft_drawline(t_wolf *e, int sl ,int el, int x)
 		tmp[x + i * WID] = COLORG;
 }
 
-static void ft_rdraw(t_wolf *e, int i)
+static void		ft_rdraw(t_wolf *e, int i)
 {
 	int hei;
 	int sl;
@@ -32,16 +44,18 @@ static void ft_rdraw(t_wolf *e, int i)
 		el = HEI - 1;
 	if (((e->rx < 0 && e->ry < 0) || (e->rx >= 0 && e->ry < 0)) && e->side)
 		e->color = COLORA;
-	else if (((e->rx < 0 && e->ry >= 0) || (e->rx >= 0 && e->ry >= 0)) && e->side)
+	else if (((e->rx < 0 && e->ry >= 0) || (e->rx >= 0 && e->ry >= 0)) &&
+			e->side)
 		e->color = COLORB;
-	else if (((e->rx < 0 && e->ry < 0) || (e->rx < 0 && e->ry >= 0)) && !e->side)
+	else if (((e->rx < 0 && e->ry < 0) || (e->rx < 0 && e->ry >= 0)) &&
+			!e->side)
 		e->color = COLORC;
 	else
 		e->color = COLORD;
 	return (ft_drawline(e, sl, el, i));
 }
 
-static void ft_dist(t_wolf *e)
+static void		ft_dist(t_wolf *e)
 {
 	while (!e->dist)
 	{
@@ -51,7 +65,7 @@ static void ft_dist(t_wolf *e)
 			e->mx += (e->rx < 0) ? -1 : 1;
 			e->side = 0;
 		}
-		else 
+		else
 		{
 			e->sy += e->rdy;
 			e->my += (e->ry < 0) ? -1 : 1;
@@ -67,7 +81,7 @@ static void ft_dist(t_wolf *e)
 	}
 }
 
-int			 ft_raycast(t_wolf *e)
+int				ft_raycast(t_wolf *e)
 {
 	int x;
 
@@ -76,8 +90,8 @@ int			 ft_raycast(t_wolf *e)
 	x = -1;
 	while (++x < WID)
 	{
-	e->mx = (int)e->x;
-	e->my = (int)e->y;
+		e->mx = (int)e->x;
+		e->my = (int)e->y;
 		e->rcam = 2 * x / (double)WID - 1;
 		e->rx = e->dx + e->px * e->rcam;
 		e->ry = e->dy + e->py * e->rcam;
@@ -90,6 +104,5 @@ int			 ft_raycast(t_wolf *e)
 		ft_rdraw(e, x);
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
-//	ft_bzero(e->data, WID * HEI * e->bpp);
 	return (0);
 }
