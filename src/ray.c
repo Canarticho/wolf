@@ -71,6 +71,8 @@ int			 ft_raycast(t_wolf *e)
 {
 	int x;
 
+	e->img = mlx_new_image(e->mlx, WID, HEI);
+	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->sline, &e->endian);
 	x = -1;
 	while (++x < WID)
 	{
@@ -88,6 +90,6 @@ int			 ft_raycast(t_wolf *e)
 		ft_rdraw(e, x);
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
-	ft_bzero(e->data, WID * HEI * e->bpp);
+//	ft_bzero(e->data, WID * HEI * e->bpp);
 	return (0);
 }

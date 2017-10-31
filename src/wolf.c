@@ -6,7 +6,7 @@
 /*   By: vpluchar <vpluchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 17:19:22 by vpluchar          #+#    #+#             */
-/*   Updated: 2017/10/29 20:48:09 by vpluchar         ###   ########.fr       */
+/*   Updated: 2017/10/31 21:26:06 by chle-van         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_initmlx(t_wolf *e)
 	e->py = 0.66;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, WID, HEI, "Wolf3d");
-	e->img = mlx_new_image(e->mlx, WID, HEI);
-	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->sline, &e->endian);
+//	e->img = mlx_new_image(e->mlx, WID, HEI);
+//	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->sline, &e->endian);
 	mlx_key_hook(e->win, &ft_move, e);
 	mlx_loop_hook(e->mlx, &ft_raycast, e);
 	mlx_loop(e->mlx);
@@ -31,13 +31,13 @@ void	ft_initmlx(t_wolf *e)
 
 int    ft_move(int key, t_wolf *e)
 {
-	if(key == ESC)
+	if (key == ESC)
 	{
 		mlx_destroy_image(e->mlx, e->img);
 		free(e);
 		exit(EXIT_SUCCESS);
 	}
-	if (key == UP || DOWN)
+	if (key == UP || key == DOWN)
 	{
 		e->ms = (key == UP) ? (MS) : (-MS);
 			if (!(e->map[(int)(e->x + e->dx * e->ms)][(int)e->y]))
