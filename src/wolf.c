@@ -23,7 +23,7 @@ void	ft_initmlx(t_wolf *e)
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, WID, HEI, "Wolf3d");
 	e->img = mlx_new_image(e->mlx, WID, HEI);
-	e->data = mlx_get_data_addr(e->mlx, &e->bpp, &e->sline, &e->endian);
+	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->sline, &e->endian);
 	mlx_key_hook(e->win, &ft_move, e);
 	mlx_loop_hook(e->mlx, &ft_raycast, e);
 	mlx_loop(e->mlx);
@@ -36,7 +36,7 @@ int    ft_move(int key, t_wolf *e)
 	if (key == UP || DOWN)
 	{
 		e->ms = (key == UP) ? (MS) : (-MS);
-			if (e->map[(int)(e->x + e->x * e->ms)][(int)e->y] == 0)
+			if (e->map[(int)(e->x + e->dx * e->ms)][(int)e->y] == 0)
 				e->x += e->dx * e->ms;
 		if (e->map[(int)e->x][(int)(e->y + e->dy * e->ms)] == 0)
 			e->y += e->dy * e->ms;
@@ -44,12 +44,12 @@ int    ft_move(int key, t_wolf *e)
 	if (key == LEFT || key == RIGHT)
 	{
 		e->ts = (key == LEFT) ? (TS) : (-TS);
+		e->tmp = e->dx;
+		e->dx = e->dx * cos(e->ts) - e->dy * sin(e->ts);
+		e->dy = e->tmp * sin(e->ts) + e->dy * cos(e->ts);
 		e->tmp = e->px;
-		e->dx = e->dx * cos(-e->ts) - e->dy * sin(-e->ts);
-		e->dy = e->tmp * sin(-e->ts) + e->dy * cos(-e->ts);
-		e->tmp = e->px;
-		e->px = e->px * cos(-e->ts) - e->px * sin(-e->ts);
-		e->py = e->tmp * cos(-e->ts) - e->px * sin(-e->ts);
+		e->px = e->px * cos(e->ts) - e->py * sin(e->ts);
+		e->py = e->tmp * sin(e->ts) + e->px * cos(e->ts);
 	}
 	return (0);
 }

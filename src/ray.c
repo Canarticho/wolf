@@ -6,9 +6,7 @@ static void ft_putpx(t_wolf *e, int x, int y, unsigned int c)
 	int *tmp;
 	tmp = (int *)e->data;
 	i = x + (y * WID);
-	tmp[i++] = c;
-	tmp[i++] = c >> 8;
-	tmp[i] = c >> 16;
+	tmp[i] = c;
 }
 
 static void ft_drawline(t_wolf *e, int sl ,int el, int x)
@@ -41,9 +39,9 @@ static void ft_rdraw(t_wolf *e, int i)
 		el = HEI - 1;
 	if (((e->sx > 0 && e->sy > 0) || (e->sx < 0 && e->sy > 0)) && e->side)
 		e->color = COLORA;
-	if (((e->sx > 0 && e->sy < 0) || (e->sx < 0 && e->sy < 0)) && e->side)
+	else if (((e->sx > 0 && e->sy < 0) || (e->sx < 0 && e->sy < 0)) && e->side)
 		e->color = COLORB;
-	if (((e->sx > 0 && e->sy > 0) || (e->sx < 0 && e->sy > 0)) && !e->side)
+	else if (((e->sx > 0 && e->sy > 0) || (e->sx < 0 && e->sy > 0)) && !e->side)
 		e->color = COLORC;
 	else
 		e->color = COLORD;
@@ -52,27 +50,26 @@ static void ft_rdraw(t_wolf *e, int i)
 
 static void ft_dist(t_wolf *e)
 {
-	while (!e->hit)
+	while (!e->dist)
 	{
-		if (e->sx < e->sx)
+		if (e->sx < e->sy)
 		{
 			e->sx += e->rdx;
-			e->mx += (e->sx > 0) ? (1) : (-1);
+			e->mx += (e->rx < 0) ? -1 : 1;
 			e->side = 0;
 		}
 		else 
 		{
 			e->sy += e->rdy;
-			e->my += (e->sy > 0) ? (1) : (-1);
+			e->my += (e->ry < 0) ? -1 : 1;
 			e->side = 1;
 		}
 		if (e->map[e->mx][e->my])
 		{
-			e->hit = 1;
 			if (e->side)
-				e->dist = (e->my - e->y + (1 - e->sy) / 2) / e->ry;
+				e->dist = (e->my - e->y + (1 - ((e->ry < 0) ? -1 : 1)) / 2) / e->ry;
 			else
-				e->dist = (e->mx - e->x + (1 - e->sx) / 2) / e->rx;
+				e->dist = (e->mx - e->x + (1 - ((e->rx < 0) ? -1 : 1)) / 2) / e->rx;
 		}
 	}
 }
@@ -82,21 +79,23 @@ int			 ft_raycast(t_wolf *e)
 	int x;
 
 	x = -1;
-	e->mx = (int)e->x;
-	e->my = (int)e->y;
-	e->rx = e->dx + e->px * e->rcam;
-	e->ry = e->dy + e->py * e->rcam;
-	e->dx = sqrt(1 + (e->dy * e->dy) / (e->dx * e->dx));
-	e->dx = sqrt(1 + (e->dx * e->dx) / (e->dy * e->dy));
-	e->sx = ((e->rx < 0) ? (e->x - (int)e->x) : ((int)e->x - e->x)) * e->rdx;
-	e->sy = ((e->ry < 0) ? (e->y - (int)e->y) : ((int)e->y - e->y)) * e->rdy;
-	e->hit = 0;
 	while (++x < WID)
 	{
-		e->rcam = 2 * x / WID - 1;
+	e->mx = (int)e->x;
+	e->my = (int)e->y;
+		e->rcam = 2 * x / (double)WID - 1;
+		e->rx = e->dx + e->px * e->rcam;
+		e->ry = e->dy + e->py * e->rcam;
+		e->rdx = sqrt(1 + (e->ry * e->ry) / (e->rx * e->rx));
+		e->rdy = sqrt(1 + (e->rx * e->rx) / (e->ry * e->ry));
+		e->sx = ((e->rx < 0) ? (e->x - e->mx) : (e->mx - e->x)) * e->rdx;
+		e->sy = ((e->ry < 0) ? (e->y - e->my) : (e->my - e->y)) * e->rdy;
+		e->side = -1;
+		e->dist = 0;
 		ft_dist(e);
 		ft_rdraw(e, x);
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	ft_bzero(e->data, WID * HEI * e->bpp);
 	return (0);
 }
