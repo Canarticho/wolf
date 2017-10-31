@@ -32,7 +32,11 @@ void	ft_initmlx(t_wolf *e)
 int    ft_move(int key, t_wolf *e)
 {
 	if(key == ESC)
+	{
+		mlx_destroy_image(e->mlx, e->img);
+		free(e);
 		exit(EXIT_SUCCESS);
+	}
 	if (key == UP || DOWN)
 	{
 		e->ms = (key == UP) ? (MS) : (-MS);
@@ -49,7 +53,7 @@ int    ft_move(int key, t_wolf *e)
 		e->dy = e->tmp * sin(e->ts) + e->dy * cos(e->ts);
 		e->tmp = e->px;
 		e->px = e->px * cos(e->ts) - e->py * sin(e->ts);
-		e->py = e->tmp * sin(e->ts) + e->px * cos(e->ts);
+		e->py = e->tmp * sin(e->ts) + e->py * cos(e->ts);
 	}
 	return (0);
 }

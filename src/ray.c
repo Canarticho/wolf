@@ -88,8 +88,8 @@ int			 ft_raycast(t_wolf *e)
 		e->ry = e->dy + e->py * e->rcam;
 		e->rdx = sqrt(1 + (e->ry * e->ry) / (e->rx * e->rx));
 		e->rdy = sqrt(1 + (e->rx * e->rx) / (e->ry * e->ry));
-		e->sx = ((e->rx < 0) ? (e->x - e->mx) : (e->mx - e->x)) * e->rdx;
-		e->sy = ((e->ry < 0) ? (e->y - e->my) : (e->my - e->y)) * e->rdy;
+		e->sx = ((e->rx < 0) ? (e->x - e->mx) : (1 + e->mx - e->x)) * e->rdx;
+		e->sy = ((e->ry < 0) ? (e->y - e->my) : (1 + e->my - e->y)) * e->rdy;
 		e->side = -1;
 		e->dist = 0;
 		ft_dist(e);
